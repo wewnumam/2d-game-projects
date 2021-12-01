@@ -1,0 +1,11 @@
+{
+    "Lua.diagnostics.globals": [
+        "love",
+        "ball",
+        "mouse",
+        "a",
+        "b",
+        "c",
+        "pythagoras"
+    ]
+}
