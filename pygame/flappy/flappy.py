@@ -66,6 +66,10 @@ while run:
         flappy_y += flappy_g
         flappy_angle = 0
     
+    # hit the ground
+    if flappy_y + flappy_h > WIN_HEIGHT:
+        run = False
+
     # hit the pipe
     for i in range(len(pipe_x)):
         if (
@@ -73,7 +77,7 @@ while run:
             flappy_x + flappy_w < pipe_x[i] + pipe_w
         ) and (
             flappy_y < pipe_hole_t[i] or 
-            flappy_y > pipe_hole_b[i]
+            flappy_y + flappy_h > pipe_hole_b[i]
         ):
             run = False
     
