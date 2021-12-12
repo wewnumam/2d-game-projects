@@ -1,0 +1,16 @@
+{
+    "Lua.runtime.version": "LuaJIT",
+    "Lua.workspace.library": [
+        "${3rd}/love2d/library"
+    ],
+    "Lua.workspace.checkThirdParty": false,
+    "Lua.diagnostics.globals": [
+        "world",
+        "dino",
+        "ground",
+        "beginContact",
+        "hitground",
+        "cactus",
+        "tablelength"
+    ]
+}
