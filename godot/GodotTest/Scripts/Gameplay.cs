@@ -5,9 +5,10 @@ public class Gameplay : Node2D
 {
 	[Export]
 	private PackedScene enemy;
+	private Timer restart;
 	private Vector2 spawnLeft = new Vector2(x: -1400f, y: 500f);
 	private Vector2 spawnRight = new Vector2(x: 3000, y: 500f);
-	private Timer restart;
+
 	public override void _Ready()
 	{
 		restart = GetNode<Timer>("Restart");
@@ -23,12 +24,9 @@ public class Gameplay : Node2D
 	private Vector2 newEnemyGeneratePosition()
 	{
 		if (isEnemySpawnOnRight())
-		{
 			return spawnRight;
-		} else
-		{
+		else
 			return spawnLeft;
-		}
 	}
 
 	private bool isEnemySpawnOnRight()

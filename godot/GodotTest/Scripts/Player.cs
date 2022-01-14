@@ -3,12 +3,12 @@ using System;
 
 public class Player : KinematicBody2D
 {
-	private Vector2 player = Vector2.Zero;
-	private Vector2 upDirection = Vector2.Up;
-	private AnimatedSprite animation;
 	private const float SPEED = 400f;
 	private const float GRAVITY = 20f;
 	private const float JUMP_FORCE = -900f;
+	private Vector2 player = Vector2.Zero;
+	private Vector2 upDirection = Vector2.Up;
+	private AnimatedSprite animation;
 
 	public override void _Ready()
 	{
@@ -22,7 +22,6 @@ public class Player : KinematicBody2D
 
 	private void PlayerMovement() 
 	{
-		player.y += GRAVITY;
 		if (Input.IsActionPressed("move_right"))
 		{
 			player.x = SPEED;
@@ -36,29 +35,27 @@ public class Player : KinematicBody2D
 			player.x = 0f;
 			AnimateMovement(false, false);
 		}
+
+		player.y += GRAVITY;
 		if (IsOnFloor() && Input.IsActionJustPressed("jump"))
-		{
 			player.y = JUMP_FORCE;
-		}
+
 		player = MoveAndSlide(player, upDirection);
 	}
 
 	void AnimateMovement(bool isMove, bool isMoveRight)
 	{
-		if (isMove)
-		{
-			animation.Play("Flap");
-			if (isMoveRight)
-			{
-				animation.FlipH = false;
-			} else 
-			{
-				animation.FlipH = true;
-			}
-		} else
+		if (!isMove)
 		{
 			animation.Play("Idle");
-		}
+			return;
+		} 
+		animation.Play("Flap");
+
+		if (isMoveRight)
+			animation.FlipH = false;
+		else 
+			animation.FlipH = true;
 	}
 	
 	/**
@@ -70,7 +67,9 @@ public class Player : KinematicBody2D
 	{
 		if (body.IsInGroup("Enemy"))
 		{
-			GetParent().GetNode<MainCamera>("MainCamera").isPlayerDied = true;
+			GetParent()
+				.GetNode<MainCamera>("MainCamera")
+				.SetPlayerDied(isPlayerDied: true);
 			GetParent<Gameplay>().PlayerDied();
 			QueueFree();
 		}

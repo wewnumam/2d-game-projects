@@ -9,11 +9,7 @@ public class Enemy : KinematicBody2D
 	private const float MAX_POSITION_X = 3150f;
 	private float directionX = SPEED;
 	private Vector2 enemy;
-	
-	public override void _Ready()
-	{
 
-	}
 
 	public override void _PhysicsProcess(float delta)
 	{
@@ -31,8 +27,9 @@ public class Enemy : KinematicBody2D
 			directionX = -SPEED;
 			GetNode<AnimatedSprite>("Animation").FlipH = true;
 		}
-		enemy.y += GRAVITY;
+
 		enemy.x = directionX;
+		enemy.y += GRAVITY;
 		enemy = MoveAndSlide(enemy);
 	}
 
