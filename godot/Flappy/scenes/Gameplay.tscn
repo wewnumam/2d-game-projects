@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/rect846.png" type="Texture" id=2]
+[ext_resource path="res://scripts/camera.gd" type="Script" id=3]
+[ext_resource path="res://scripts/gameplay.gd" type="Script" id=4]
+[ext_resource path="res://scenes/Pipe.tscn" type="PackedScene" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 375.125, 36.5 )
+
+[node name="Gameplay" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 352, 633 )
+
+[node name="Pipe" parent="." instance=ExtResource( 5 )]
+position = Vector2( 700, 0 )
+
+[node name="Ground" type="StaticBody2D" parent="."]
+
+[node name="Rect846" type="Sprite" parent="Ground"]
+position = Vector2( 365, 1654 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2( 365.875, 1315.5 )
+shape = SubResource( 1 )
+
+[node name="PipeSpawn" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 750, 0 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+margin_left = 300.0
+margin_top = 60.0
+margin_right = 360.0
+margin_bottom = 75.0
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "SCORE: 0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 360, 640 )
+current = true
+smoothing_enabled = true
+smoothing_speed = 3.0
+script = ExtResource( 3 )
+
+[connection signal="timeout" from="PipeSpawn" to="." method="_on_pipe_spawn"]
