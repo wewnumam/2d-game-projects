@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Main.gd" type="Script" id=1]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 323.0
+margin_top = 90.0
+margin_right = 480.0
+margin_bottom = 104.0
+text = "WELCOME TO THE GAME"
+
+[node name="ButtonTo2D" type="Button" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -90.0
+margin_top = 150.0
+margin_right = 90.0
+margin_bottom = 220.0
+text = "Go to 2D"
+
+[node name="ButtonTo3D" type="Button" parent="."]
+margin_left = 310.0
+margin_top = 250.0
+margin_right = 490.0
+margin_bottom = 320.0
+text = "Go to 3D"
+
+[node name="ButtonToUI" type="Button" parent="."]
+margin_left = 310.0
+margin_top = 350.0
+margin_right = 490.0
+margin_bottom = 420.0
+text = "Go to Another UI"
+
+[node name="ButtonQuit" type="Button" parent="."]
+margin_left = 310.0
+margin_top = 450.0
+margin_right = 490.0
+margin_bottom = 520.0
+text = "Quit"
+
+[connection signal="pressed" from="ButtonTo2D" to="." method="_on_ButtonTo2D_pressed"]
+[connection signal="pressed" from="ButtonTo3D" to="." method="_on_ButtonTo3D_pressed"]
+[connection signal="pressed" from="ButtonToUI" to="." method="_on_ButtonToUI_pressed"]
+[connection signal="pressed" from="ButtonQuit" to="." method="_on_ButtonQuit_pressed"]
