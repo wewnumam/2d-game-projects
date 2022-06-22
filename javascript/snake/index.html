@@ -33,11 +33,59 @@
         table tr td {
             text-align: center;
         }
+        
+        #turnLeft {
+            grid-area: turnLeft;
+        }
+        
+        #turnUp {
+            grid-area: turnUp;
+        }
+
+        #turnRight {
+            grid-area: turnRight;
+        }
+
+        #turnDown {
+            grid-area: turnDown;
+        }
+        
+        #btnControlContainer {
+            display: grid;
+            grid-template-areas: 
+            '. turnUp .'
+            'turnLeft . turnRight'
+            '. turnDown.';
+            grid-template-columns: auto;
+            grid-template-rows: auto;
+        }
+        
+        #btnControlContainer button {
+            font-weight: bold;
+            width: 50px;
+            height: 50px;
+            font-size: 32pt;
+        }
     </style>
 </head>
 <body>
-    <p id="score">Score: <span></span></p>
+    <p id="score">
+        Use WASD or ⇦ ⇧ ⇨ ⇩ to move |
+        <strong>
+            Score: <span></span>
+        </strong>
+    </p>
     <canvas id="canvas" width="960" height="600"></canvas>
+    <br><br><br>
+    <div id="btnControlContainer">
+        <button id="turnLeft" onclick="turnLeft()">⇦</button>
+        <button id="turnUp" onclick="turnUp()">⇧</button>
+        <button id="turnRight" onclick="turnRight()">⇨</button>
+        <button id="turnDown" onclick="turnDown()">⇩</button>
+    </div>
+    <button id="btnEnter" onclick="start()">ENTER</button>
+    <button id="btnReload" onclick="window.location.reload()">PLAY AGAIN</button>
+    
     <script src="script.js"></script>
 </body>
 </html>

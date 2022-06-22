@@ -1,14 +1,25 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+const eatSfx = new Audio('eat.wav');
+const hitSfx = new Audio('hit.wav');
+
 const scoreDisplay = document.querySelector('#score span');
-let game = setInterval(update, 250);
+const btnControlContainer = document.getElementById('btnControlContainer');
+const btnEnter = document.getElementById('btnEnter');
+const btnReload = document.getElementById('btnReload');
+btnControlContainer.style.display = 'none';
+btnReload.style.display = 'none';
+
+// Game loop
+let game = setInterval(update, 100);
+let isGameStart = false;
 
 const snakeW = 20;
 const snakeH = 20;
 const snakeV = 20;
 let snakeX = 0;
 let snakeY = 0;
-let snakeDX = 0;
+let snakeDX = snakeV;
 let snakeDY = 0;
 let tailX = [];
 let tailY = [];
@@ -24,9 +35,38 @@ let boardY = [];
 for (let i = 0; i < canvas.width; i += appleW) boardX.push(i);
 for (let i = 0; i < canvas.height; i += appleW) boardY.push(i);
 
-function update() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+function start() {
+    // Prevent overriding call
+    if (!isGameStart) {
+        btnControlContainer.style.display = 'grid';
+        btnEnter.style.display = 'none';
+        btnReload.style.display = 'none';
+    }
+    isGameStart = true;
+}
 
+function update() {
+    if (isGameStart) {
+        // Play screen
+        ctx.clearRect(0, 0, canvas.width, canvas.height);   
+        snake();
+        draw();
+    } else {
+        // Start screen
+        ctx.fillStyle = 'black';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.font = "34px Arial";
+        ctx.strokeStyle = '#FF2222';
+        ctx.fillStyle = '#FFFFFF';
+        ctx.lineWidth = 0.75;
+        ctx.textAlign="center";
+        let msg = "Press ENTER to start!"
+        ctx.fillText(msg, canvas.width / 2, canvas.height / 2);
+    }
+}
+
+function snake() {
     // Snake movement, manipulate by input()
     snakeX += snakeDX;
     snakeY += snakeDY;
@@ -39,6 +79,7 @@ function update() {
     
     // Snake eats apple
     if (snakeX == appleX && snakeY == appleY) {
+        eatSfx.play();
         score++;
         appleX = boardX[Math.floor(Math.random() * boardX.length)];
         appleY = boardY[Math.floor(Math.random() * boardY.length)];
@@ -55,28 +96,37 @@ function update() {
     // Snake bites his tail
     for (let i = 0; i < score; i++) {
         if (i > 2 && snakeX == tailX[i] && snakeY == tailY[i]) {
-            clearInterval(game);
-            score += ' GAME OVER'
+            gameOver();
             break;
         }
     }
-    
+}
+
+function gameOver() {
+    hitSfx.play();
+    clearInterval(game);
+    score += ' GAME OVER';
+    btnControlContainer.style.display = 'none';
+    btnReload.style.display = 'block';
+}
+
+function draw() {
     // Draw snake
-    ctx.fillStyle = 'gold';
+    ctx.fillStyle = '#FFA500';
     ctx.fillRect(snakeX, snakeY, snakeW, snakeH);
 
     // Draw tail
     for (let i = 0; i < tailX.length; i++) {
         if (i > 0) {
-            ctx.fillStyle = 'blue';
+            ctx.fillStyle = '#3A5BA0';
         } else {
-            ctx.fillStyle = 'gold';
+            ctx.fillStyle = '#FFA500';
         }
         ctx.fillRect(tailX[i], tailY[i], snakeW, snakeH);
     }
 
     // Draw apple
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = '#990000';
     ctx.fillRect(appleX, appleY, appleW, appleH);
 
     // Draw score
@@ -84,30 +134,34 @@ function update() {
 }
 
 function input(e) {
-    switch (e.key) {
-        case 'ArrowLeft':
-            if (snakeDX == 0) snakeDX = -snakeV;
-            snakeDY = 0;
-            break;
-        case 'ArrowRight':
-            if (snakeDX == 0) snakeDX = snakeV;
-            snakeDY = 0;
-            break;
-        case 'ArrowUp':
-            snakeDX = 0;
-            if (snakeDY == 0) snakeDY = -snakeV;
-            break;
-        case 'ArrowDown':
-            snakeDX = 0;
-            if (snakeDY == 0) snakeDY = snakeV;
-            break;
-        case 'Escape':
-            clearInterval(game);
-            break;
-        case 'q':
-            clearInterval(game);
-            break;
-    }
+    if (e.key == 'ArrowLeft' || e.key == 'a') turnLeft();
+    else if (e.key == 'ArrowRight' || e.key == 'd') turnRight();
+    else if (e.key == 'ArrowUp' || e.key == 'w') turnUp();
+    else if (e.key == 'ArrowDown' || e.key == 's') turnDown();
+
+    if (e.key == 'Enter') start();
+    if (e.key == 'Escape') clearInterval(game);
+    if (e.key == 'q') clearInterval(game);
+}
+
+function turnLeft() {
+    if (snakeDX == 0) snakeDX = -snakeV;
+    snakeDY = 0;
+}
+
+function turnRight() {
+    if (snakeDX == 0) snakeDX = snakeV;
+    snakeDY = 0;
+}
+
+function turnUp() {
+    snakeDX = 0;
+    if (snakeDY == 0) snakeDY = -snakeV;
+}
+
+function turnDown() {
+    snakeDX = 0;
+    if (snakeDY == 0) snakeDY = snakeV;
 }
 
 document.addEventListener('keydown', input);
