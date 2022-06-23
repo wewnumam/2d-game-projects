@@ -38,7 +38,16 @@ for (let i = 0; i < canvas.height; i += appleW) boardY.push(i);
 function start() {
     // Prevent overriding call
     if (!isGameStart) {
-        btnControlContainer.style.display = 'grid';
+        // Show control button in mobile screen
+        function screenWidthChecker(mediaScreenWidth) {
+            if (mediaScreenWidth.matches) {
+                btnControlContainer.style.display = 'grid';
+            }
+        }
+        const mediaScreenWidth = window.matchMedia("(max-width: 600px)");
+        screenWidthChecker(mediaScreenWidth);
+        mediaScreenWidth.addListener(screenWidthChecker);
+
         btnEnter.style.display = 'none';
         btnReload.style.display = 'none';
     }
@@ -48,19 +57,19 @@ function start() {
 function update() {
     if (isGameStart) {
         // Play screen
-        ctx.clearRect(0, 0, canvas.width, canvas.height);   
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         snake();
         draw();
     } else {
         // Start screen
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        ctx.font = "34px Arial";
+
+        ctx.font = "34px 'Press Start 2P'";
         ctx.strokeStyle = '#FF2222';
         ctx.fillStyle = '#FFFFFF';
         ctx.lineWidth = 0.75;
-        ctx.textAlign="center";
+        ctx.textAlign = "center";
         let msg = "Press ENTER to start!"
         ctx.fillText(msg, canvas.width / 2, canvas.height / 2);
     }
@@ -76,7 +85,7 @@ function snake() {
     if (snakeX < 0) snakeX = canvas.width;
     if (snakeY > canvas.height) snakeY = 0;
     if (snakeY < 0) snakeY = canvas.height;
-    
+
     // Snake eats apple
     if (snakeX == appleX && snakeY == appleY) {
         eatSfx.play();
@@ -140,8 +149,8 @@ function input(e) {
     else if (e.key == 'ArrowDown' || e.key == 's') turnDown();
 
     if (e.key == 'Enter') start();
-    if (e.key == 'Escape') clearInterval(game);
-    if (e.key == 'q') clearInterval(game);
+    if (e.key == 'Escape') gameOver();
+    if (e.key == 'q') gameOver();
 }
 
 function turnLeft() {
