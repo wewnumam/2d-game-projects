@@ -8,11 +8,11 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance { get => _instance; }
     
-    private static int _score;
-    public static int Score { get => _score; set => _score = value; }
+    private int _score;
+    public int Score { get => _score; set => _score = value; }
 
-    private static bool _isGameOver;
-    public static bool IsGameOver { get => _isGameOver; set => _isGameOver = value; }
+    private bool _isGameOver;
+    public bool IsGameOver { get => _isGameOver; set => _isGameOver = value; }
 
     private static float timer;
 
@@ -27,9 +27,9 @@ public class GameManager : MonoBehaviour
         DelayGameOver();
     }
 
-    public static void AddScore() => Score++;
+    public void AddScore() => _score++;
 
-    public static void SetGameOver() => IsGameOver = true;
+    public void SetGameOver() => _isGameOver = true;
 
     void DelayGameOver()
     {
@@ -39,10 +39,10 @@ public class GameManager : MonoBehaviour
         if (timer > PAUSE_TIME)
         {
             timer = 0;
-            if (IsGameOver)
+            if (_isGameOver)
             {
-                IsGameOver = false;
-                Score = 0;
+                _isGameOver = false;
+                _score = 0;
                 SceneManager.LoadScene("Game");
             }
         }

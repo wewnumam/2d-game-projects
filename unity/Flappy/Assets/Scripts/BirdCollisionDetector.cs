@@ -8,7 +8,7 @@ public class BirdCollisionDetector : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bird"))
         {
-            GameManager.SetGameOver();
+            GameManager.Instance.SetGameOver();
         }
     }
 }

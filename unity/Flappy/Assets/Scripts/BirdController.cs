@@ -18,7 +18,7 @@ public class BirdController : MonoBehaviour
 
     void Update()
     {
-        if (IsTouchedOrClicked() && !GameManager.IsGameOver) BoostOnYAxis();
+        if (IsTouchedOrClicked() && !GameManager.Instance.IsGameOver) BoostOnYAxis();
         
         BirdRotation();
     }

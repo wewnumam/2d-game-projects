@@ -8,7 +8,7 @@ public class Coin : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Bird"))
         {
-            GameManager.AddScore();
+            GameManager.Instance.AddScore();
             Destroy(gameObject);
         }
     }

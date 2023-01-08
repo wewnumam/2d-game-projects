@@ -7,6 +7,6 @@ public class DisplayScore : MonoBehaviour
 {
     void Update()
     {
-        GetComponent<TextMeshProUGUI>().text = GameManager.Score.ToString();
+        GetComponent<TextMeshProUGUI>().text = GameManager.Instance.Score.ToString();
     }
 }
