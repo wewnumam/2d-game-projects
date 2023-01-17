@@ -18,3 +18,4 @@ Gameplay | Title | Description
 ![](https://media.giphy.com/media/y4kyEckfJCzviTSspk/giphy.gif) | [Box Tower](./unity/BoxTower/) | Learning project. Assets by https://youtu.be/4QP0ZTPUaI4
 ![](https://media.giphy.com/media/5mjZf6ht1aCb7Zvg4I/giphy.gif) | [Plane Escape](./unity/PlaneEscape/) | Learning project. Assets by https://youtu.be/kksWWj9C4B8
 ![](https://media.giphy.com/media/tSRkmS6tlkXWykda8o/giphy.gif) | [Space Shooter](./unity/SpaceShooter/) | Learning project. Assets by https://youtu.be/XCOTK-a-1cc
+![](https://media.giphy.com/media/hv11PIGUn7fTY7XibE/giphy.gif) | [Flying Knife](./unity/FlyingKnife/) | Learning project. Assets by https://youtu.be/ButtMb7uSLY
