@@ -20,3 +20,4 @@ Gameplay | Title | Description
 ![](https://media.giphy.com/media/tSRkmS6tlkXWykda8o/giphy.gif) | [Space Shooter](./unity/SpaceShooter/) | Learning project. Assets by https://youtu.be/XCOTK-a-1cc
 ![](https://media.giphy.com/media/hv11PIGUn7fTY7XibE/giphy.gif) | [Flying Knife](./unity/FlyingKnife/) | Learning project. Assets by https://youtu.be/ButtMb7uSLY
 ![](https://media.giphy.com/media/vZmk2xPPj8XpHUfc0g/giphy.gif) | [Santa Jumper](./unity/SantaJumper/) | Learning project. Assets by https://www.youtube.com/playlist?list=PLZhNP5qJ2IA1U7KY--fNMw78h-vSilyX6
+![](https://media.giphy.com/media/VxiPToEojSgZlGgxP4/giphy.gif) | [Pang 3](./unity/Pang3/) | Learning project. Assets by https://www.youtube.com/playlist?list=PLZhNP5qJ2IA0i-zD1K_RE6-epz1tjBD6d
